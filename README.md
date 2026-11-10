@@ -10,7 +10,6 @@ src/ns_cloud_firebase.js      BiixiPay Cloud sync on Firebase (replaces the expo
 scripts/build.py              turns the two into site/index.html
 site/                         the website (index.html, offline support sw.js, manifest, icons)
 firestore.rules               Firestore security rules (shared Firebase project, see below)
-.github/workflows/pages.yml   publishes site/ to GitHub Pages on every push to main
 ```
 
 ## Updating the app
@@ -21,16 +20,13 @@ Save the new export from claude.ai over `src/NS_Cellphone_Store.html`, then run:
 python3 scripts/build.py
 ```
 
-and push to `main`. The site updates in about a minute.
+and push to `main`. Cloudflare Pages publishes `site/` automatically, in about a minute.
 
-## Domain (one-time)
+## Hosting
 
-1. GitHub repo **Settings → Pages**: Source **GitHub Actions**; Custom domain `nsphonerepair.ca` → Save;
-   tick **Enforce HTTPS** once it is offered.
-2. Cloudflare **DNS → Records**, all set to **DNS only** (grey cloud):
-   `A  nsphonerepair.ca  185.199.108.153`, `…109.153`, `…110.153`, `…111.153`, and
-   `CNAME  www  nscellphone01.github.io`.
-3. Firebase **Authentication → Settings → Authorized domains**: add `nsphonerepair.ca`.
+Cloudflare Pages (project `nsphonerepair`) is connected to this repository: production branch `main`,
+no build command, output directory `site`. Custom domains `nsphonerepair.ca` and `www.nsphonerepair.ca`.
+Firebase **Authentication → Settings → Authorized domains** must include `nsphonerepair.ca`.
 
 ## BiixiPay Cloud (sharing data across devices)
 
